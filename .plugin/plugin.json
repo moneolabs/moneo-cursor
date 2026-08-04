@@ -1,0 +1,22 @@
+{
+  "name": "moneo",
+  "displayName": "Moneo Agent Wallet & Trading",
+  "version": "0.1.0",
+  "description": "Give Cursor's agent its own guarded wallet on Robinhood Chain: hold and send USDG, trade tokenized equities, and have every spend checked against a policy before anything is signed.",
+  "author": {
+    "name": "Moneo Labs"
+  },
+  "license": "MIT",
+  "keywords": [
+    "wallet",
+    "payments",
+    "spend-guard",
+    "trading",
+    "tokenized-equities",
+    "robinhood-chain",
+    "usdg",
+    "agent-payments",
+    "mcp"
+  ],
+  "logo": "assets/logo.png"
+}

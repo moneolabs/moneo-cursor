@@ -1,0 +1,31 @@
+---
+description: Safety rules for the Moneo wallet tools - real funds move when these tools run
+alwaysApply: true
+---
+
+moneo-spend-safety:
+
+- `pay`, `execute_order`, and `close_position` move real value on Robinhood
+  Chain. Before calling any of them, tell the user the amount, the asset, and
+  the destination or symbol, and get explicit approval in this conversation.
+  Never spend unprompted.
+- Reads are free and settle nothing: `get_balance`, `get_spending_limits`,
+  `list_payments`, `list_positions`, `get_quote`, and `preflight_payment`.
+  Prefer them to answer questions, and only escalate to a spending tool when
+  the user asked for the result.
+- Use `preflight_payment` before `pay` whenever the amount is unusual or the
+  destination is new. It answers "would this pass" without moving anything.
+- A refusal is an answer, not an error to route around. When the guard blocks
+  something, tell the user the rule and the number it hit, then stop. Do not
+  retry, split the amount across several calls, or reword the request to get
+  past it. The limits belong to the wallet owner; ask them to raise the limit
+  rather than working around it.
+- Quote before you trade. Show the user the price, the fee, and the impact from
+  `get_quote`, and let them confirm before `execute_order`.
+- Always attach a slippage bound to an order, and never widen it just because a
+  fill was rejected. A rejected order is the bound doing its job.
+- Fills are irreversible transactions and cost gas in ETH on Robinhood Chain.
+  If a call fails for want of gas or funds, report the wallet address from
+  `get_balance` and let the user fund it. Do not look for another route.
+- Never print, log, or ask for the private key. It lives at ~/.moneo/key.json
+  and no tool returns it; there is nothing to paste anywhere.
